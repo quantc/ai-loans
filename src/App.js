@@ -8,7 +8,6 @@ function App() {
   const [graduate, setGraduate] = useState()
   const [result, setResult] = useState()
   const [score, setScore] = useState()
-  const [scoreStyle, setScoreStyle] = useState()
 
   const groupBy = (x, f) =>
     x.reduce((a, b, i) => ((a[f(b, i, x)] ||= []).push(b), a), {})
@@ -49,32 +48,19 @@ function App() {
   const analyzeData = () => {}
 
   const analyze = () => {
-    var rand = Math.random() * 100
+    var rand = Math.random() * 110 - 2
     var r = rand.toFixed(0)
-    let scoreColor
+    console.log(r)
 
     let res = ""
     if (r > 50) {
-      res = "You will most likely get the loan."
-      scoreColor = "green"
+      res = "Success! You will most likely get the loan!"
       // "\nYour credit score is in top 7% of applicants who where trusted with a loan"
     } else {
       res = "Please work on your credit score."
-      scoreColor = "#990033"
     }
     setResult(res)
     setScore(r)
-
-    const styl = {
-      width: "180px",
-      height: "180px",
-      borderRadius: 180 / 2,
-      border: "6px solid " + scoreColor,
-      display: "inline-block",
-      fontSize: 110,
-    }
-
-    setScoreStyle(styl)
   }
 
   const resultStyle = {
@@ -95,39 +81,49 @@ function App() {
           <tr>
             <td>annual income</td>
             <td>
-              <input></input>
+              <input value="120000"></input>
             </td>
           </tr>
           <tr>
             <td>credit score</td>
             <td>
-              <input></input>
+              <input value="124"></input>
             </td>
           </tr>
           <tr>
             <td>education</td>
             <td>
-              <input></input>
+              <input value="Graduate"></input>
             </td>
           </tr>
           <tr>
             <td>dependents</td>
             <td>
-              <input></input>
+              <input value="3"></input>
             </td>
           </tr>
         </tbody>
       </table>
       <hr></hr>
-      <button onClick={() => analyze()}>Simulation</button>
-      <button onClick={() => analyze()}>Send application</button>
+      <button onClick={() => analyze()}>Predict</button>
 
       <hr></hr>
+      {score && (
+        <div
+          style={{
+            width: "194px",
+            height: "194px",
+            borderRadius: 194 / 2,
+            border: "6px solid green",
+            display: "inline-block",
+            fontSize: 115,
+          }}
+        >
+          {score}
+        </div>
+      )}
 
-      <div> Simulation result</div>
-      <div style={scoreStyle}>{score}</div>
-
-      <h4>{result}</h4>
+      <h3>{result}</h3>
     </div>
   )
 }
